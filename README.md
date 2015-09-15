@@ -1,16 +1,12 @@
 Guide for Android SDK - CitiMobileChallenge
 Version 4
 =====================
-##### Table of Contents 
-[Setup](#setup) 
+##### Table of Contents
+[Setup](#setup)
 
-[Certificate Pinning](#certpinning)
-
-[CRUD](#crud) 
+[CRUD](#crud)
 
 [Local Cache](#localcache)
-
-[Push Notifications](#push)
 
 [Troubleshooting](#troubleshooting)
 
@@ -18,9 +14,9 @@ Version 4
 ## Setup
 
 ### Android
-Before the SDK can be used for Android. You need to set it up by calling 
-APSetup.setup(Context). This will setup the sdk according to 
-what was defined from the AnyPresence designer and initializes the 
+Before the SDK can be used for Android. You need to set it up by calling
+APSetup.setup(Context). This will setup the sdk according to
+what was defined from the AnyPresence designer and initializes the
 local cache.
 
 For example:
@@ -33,26 +29,17 @@ public class APApplication extends Application {
   }
 }
 ```
+
+Authorization headers must be set for future calls:
+```
+Map<String,String> maps = new HashMap<>();
+maps.put("Authorization","Bearer " + CitiApplication.getInstance().getClient().getToken());
+
+RemoteRequest request = new RemoteRequest();
+request.setHeaders(maps);
+```
 ### Java
 For Java, we simply call APSetup.setup() to setup the SDK.
-
-<a name="certpinning"/>
-## Certificate Pinning
-
-Certificate pinning ties a host to their expected X509 certificate. Once enabled, all https connections will 
-be verified against the certificates were pinned.
-
-```
-// Enable certificate pinning
-RemoteRailsConfig.getInstance().setUseCertPinning(true);
-
-// Add your certificate for 'https://yoursite.com'
-RemoteRailsConfig.getInstance().addCertForPinning("yoursite.com", getAssets().open("server.cert"));
-
-// Toggles the feature off
-RemoteRailsConfig.getInstance().setUseCertPinning(false);
-
-```
 
 <a name="crud"/>
 ## CRUD methods
@@ -108,7 +95,7 @@ foo.saveInBackground(new APCallback<Foo>() {
         } else {
           // There was an error
         }
-          
+
       }
 });
 
@@ -129,7 +116,7 @@ Foo.fetchInBackground("123456", new APCallback<Foo>() {
         } else {
           // There was an error
         }
-          
+
       }
 });
 ```
@@ -160,7 +147,7 @@ Foo.queryInBackground("all", params, 0, 5, new APCallback<List<Foo>>() {
         } else {
           // There was an error
         }
-          
+
       }
 });
 
@@ -172,7 +159,7 @@ Foo.queryInBackground("all", params, 0, 5, new APCallback<List<Foo>>() {
 RemoteRequest.RemoteRequestBuilder remoteRequestBuilder = (HttpAdapter)RemoteRailsConfig.getRouterAdapterByClass(Foo.class).createRemoteRequestBuilder(RequestMethod.GET, Foo.class);
 RemoteRequest remoteRequest = remoteRequestBuilder.createRemoteRequest();
 
-// Set the context where the context can be a hash or a RemoteObject 
+// Set the context where the context can be a hash or a RemoteObject
 remoteRequest.setContext(context);
 
 // Set the scope
@@ -218,7 +205,7 @@ foo.deleteInBackground(new APCallback<Foo>() {
         } else {
           // There was an error
         }
-          
+
       }
 });)
 ```
@@ -226,7 +213,7 @@ foo.deleteInBackground(new APCallback<Foo>() {
 <a name="localcache"/>
 ## Local Cache
 
-If caching is enabled, requests made to the backend will be cached. These items in the cache can then be retrieved by various methods that are available. Please refer to the 'setup' section 
+If caching is enabled, requests made to the backend will be cached. These items in the cache can then be retrieved by various methods that are available. Please refer to the 'setup' section
 for instructions to setup caching.
 
 ```
@@ -284,81 +271,6 @@ Foo.fetchInCacheWithParameterPredicate(Foo.Scopes.ALL, params);
 ```
 
 
-<a name="push"/>
-## Push Notifications
-To be able to push messages onto devices, you must register devices and then subscribe devices into channels.
-
-### Register
-
-```
-PushNotification.registerDevice("12345", new APCallback<String>() {
-    @Override
-    public void finished(String result, Throwable err) {
-        if (err == null) {
-            // Successfully registered
-        } else {
-            // Not able to register
-            err.printStackTrace();
-        }
-    }
-});
-```
-
-### Subscribe
-
-```
-PushNotification.subscribeToChannel("channel0", "12345", PushNotification.Provider.ANDROID, new APCallback<String>() {
-    @Override
-    public void finished(String result, Throwable err) {
-        if (err == null) {
-            // Successfully subscribed
-        } else {
-            // Not able to subscribe
-            err.printStackTrace();
-        }
-    }
-});
-```
-
-### Unsubscribe
-
-```
-PushNotification.unsubscribeFromChannel("channel0", "12345", PushNotification.Provider.ANDROID, new APCallback<String>() {
-    @Override
-    public void finished(String result, Throwable err) {
-        if (err == null) {
-            // Successfully unsubscribed
-        } else {
-            // Not able to unsubscribe
-            err.printStackTrace();
-        }
-    }
-});
-```
-
-### Sends message to channel
-
-```
-IOSNotificationData iosData = new IOSNotificationData();
-iosData.setAlert("alert!");
-
-AndroidNotificationData androidData = new AndroidNotificationData();
-androidData.setCollapseKey("my_key")
-
-PushNotification.sendMessage("channel0", "Hello!", iosData, androidData,  new APCallback<String>() {
-    @Override
-    public void finished(String result, Throwable err) {
-        if (err == null) {
-            // Successfully sent message
-        } else {
-            // Not able to send message
-            err.printStackTrace();
-        }
-    }
-});
-```
-
-
 <a name="troubleshooting"/>
 ## Troubleshooting
 Debug logs can be obtained by calling this method:
@@ -366,5 +278,3 @@ Debug logs can be obtained by calling this method:
 ```
 APSetup.enableDebugMode()
 ```
-
-
