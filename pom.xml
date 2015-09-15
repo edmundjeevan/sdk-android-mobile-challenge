@@ -4,7 +4,7 @@
   <groupId>com.anypresence.sdk.anypresence_inc.citi_mobile_challenge</groupId>
   <artifactId>android</artifactId>
   <packaging>jar</packaging>
-  <version>2-SNAPSHOT</version>
+  <version>4-SNAPSHOT</version>
   <name>sdk</name>
   <url>http://maven.apache.org</url>
 

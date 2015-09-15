@@ -1,5 +1,5 @@
 Guide for Android SDK - CitiMobileChallenge
-Version 2
+Version 4
 =====================
 ##### Table of Contents 
 [Setup](#setup) 
@@ -82,6 +82,8 @@ Note that thee current SDK has these objects:
   RetailBankingLogin
   RetailBankingPayee
   RetailBankingPayeeType
+  RetailBankingRewardsCatalog
+  RetailBankingRewardsRedemption
 
 ### Create (synchronous)
 
