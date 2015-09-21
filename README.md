@@ -1,4 +1,4 @@
-Guide for Android SDK - CitiMobileChallenge
+#Guide for Android SDK - CitiMobileChallenge
 
 [Citi Mobile Challenge Android Sample App](https://github.com/ap-customer-citi/sample-android-mobile-challenge)
 
