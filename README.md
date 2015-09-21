@@ -16,6 +16,8 @@ Version 4
 <a name="setup"/>
 ## Setup
 
+A working native sample app that calls a subset of these APIs using this SDK is available for download <a href="https://github.com/ap-customer-citi/sample-android-mobile-challenge">here</a>.  Download and run in the Android Studio emulator.
+
 ### Android
 Before the SDK can be used for Android. You need to set it up by calling
 APSetup.setup(Context). This will setup the sdk according to
